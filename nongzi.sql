@@ -1,4 +1,6 @@
 -- 项目数据库的SQL语句
+CREATE database nongzi;
+use database;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
