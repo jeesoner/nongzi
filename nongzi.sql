@@ -1,22 +1,22 @@
--- 项目数据库的SQL语句
-CREATE database nongzi;
-use database;
+-- 项目数据库sql语句
+CREATE DATABASE nongzi;
+USE nongzi;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for account
+-- Table structure fo`nongzi`r account
 -- ----------------------------
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account`  (
-  `m_id` int(11) NOT NULL AUTO_INCREMENT,
-  `u_id` int(11) DEFAULT NULL,
-  `m_time` date DEFAULT NULL,
-  `m_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '充值/消费/提现',
-  `m_amoney` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `m_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `u_id` INT(11) DEFAULT NULL,
+  `m_time` DATE DEFAULT NULL,
+  `m_type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '充值/消费/提现',
+  `m_amoney` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`m_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of account
@@ -30,13 +30,13 @@ INSERT INTO `account` VALUES (3, 1, '2018-03-07', '充值', '+100');
 -- ----------------------------
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin`  (
-  `ad_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ad_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ad_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
+  `ad_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `ad_username` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `ad_password` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role_id` INT(11) DEFAULT NULL,
   PRIMARY KEY (`ad_id`) USING BTREE,
   INDEX `roleIdpre`(`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of admin
@@ -49,10 +49,10 @@ INSERT INTO `admin` VALUES (2, 'zuidaima', '111111', 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_menu`;
 CREATE TABLE `admin_menu`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `menu_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `menu_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of admin_menu
@@ -67,14 +67,14 @@ INSERT INTO `admin_menu` VALUES (6, '农资管理');
 -- ----------------------------
 -- Table structure for admin_menu_child
 -- ----------------------------
-DROP TABLE IF EXISTS `admin_menu_child`;
+DROP TABLE IF EXISTS `admin_child_menu`;
 CREATE TABLE `admin_menu_child`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `child_menu_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `parentid` int(11) DEFAULT NULL,
-  `child_menu_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `child_menu_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `parentid` INT(11) DEFAULT NULL,
+  `child_menu_url` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of admin_menu_child
@@ -92,34 +92,34 @@ INSERT INTO `admin_menu_child` VALUES (7, '个人信息', 1, '/user/mainToAdminu
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment`  (
-  `e_id` int(11) NOT NULL AUTO_INCREMENT,
-  `e_parentId` int(11) DEFAULT NULL COMMENT '追评',
-  `s_id` int(11) DEFAULT NULL,
-  `u_id` int(11) DEFAULT NULL COMMENT '用户ID',
-  `e_pictureName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '上传的图片名字',
-  `e_type` int(11) DEFAULT NULL COMMENT '1=好评，0，-1差评',
-  `e_score` int(11) DEFAULT NULL COMMENT '评分',
-  `info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '评语',
-  `e_date` date DEFAULT NULL COMMENT '评价日期',
+  `e_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `e_parentId` INT(11) DEFAULT NULL COMMENT '追评',
+  `s_id` INT(11) DEFAULT NULL,
+  `u_id` INT(11) DEFAULT NULL COMMENT '用户ID',
+  `e_pictureName` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '上传的图片名字',
+  `e_type` INT(11) DEFAULT NULL COMMENT '1=好评，0，-1差评',
+  `e_score` INT(11) DEFAULT NULL COMMENT '评分',
+  `info` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '评语',
+  `e_date` DATE DEFAULT NULL COMMENT '评价日期',
   PRIMARY KEY (`e_id`) USING BTREE,
   INDEX `u_idpre`(`u_id`) USING BTREE,
   INDEX `s_idpre`(`s_id`) USING BTREE,
   CONSTRAINT `s_idpre` FOREIGN KEY (`s_id`) REFERENCES `snackinfo` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `u_idpre` FOREIGN KEY (`u_id`) REFERENCES `userinfo` (`u_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Table structure for integral
 -- ----------------------------
 DROP TABLE IF EXISTS `integral`;
 CREATE TABLE `integral`  (
-  `i_id` int(11) NOT NULL AUTO_INCREMENT,
-  `u_id` int(11) DEFAULT NULL COMMENT '用户id',
-  `i_number` int(11) DEFAULT NULL COMMENT '获得积分',
-  `i_time` date DEFAULT NULL COMMENT '操作时间',
-  `i_dese` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
+  `i_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `u_id` INT(11) DEFAULT NULL COMMENT '用户id',
+  `i_number` INT(11) DEFAULT NULL COMMENT '获得积分',
+  `i_time` DATE DEFAULT NULL COMMENT '操作时间',
+  `i_dese` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`i_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of integral
@@ -141,14 +141,14 @@ INSERT INTO `integral` VALUES (11, 1, 11, '2018-03-21', '每天登录送积分')
 -- ----------------------------
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `o_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '订单编号',
-  `u_id` int(11) DEFAULT NULL,
-  `e_id` int(11) DEFAULT NULL COMMENT '操作员ID',
-  `o_time` date DEFAULT NULL,
-  `o_type` int(11) DEFAULT NULL COMMENT '-1:未发货；1:完成，0：已发货',
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `o_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '订单编号',
+  `u_id` INT(11) DEFAULT NULL,
+  `e_id` INT(11) DEFAULT NULL COMMENT '操作员ID',
+  `o_time` DATE DEFAULT NULL,
+  `o_type` INT(11) DEFAULT NULL COMMENT '-1:未发货；1:完成，0：已发货',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 130 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 130 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of order
@@ -165,13 +165,13 @@ INSERT INTO `order` VALUES (129, '201908251855', 20, NULL, '2019-08-25', -2);
 -- ----------------------------
 DROP TABLE IF EXISTS `orderdetail`;
 CREATE TABLE `orderdetail`  (
-  `d_id` int(11) NOT NULL AUTO_INCREMENT,
-  `o_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `s_id` int(11) DEFAULT NULL,
-  `o_num` int(11) DEFAULT NULL,
-  `o_money` double DEFAULT NULL,
+  `d_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `o_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `s_id` INT(11) DEFAULT NULL,
+  `o_num` INT(11) DEFAULT NULL,
+  `o_money` DOUBLE DEFAULT NULL,
   PRIMARY KEY (`d_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 160 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 160 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of orderdetail
@@ -189,14 +189,14 @@ INSERT INTO `orderdetail` VALUES (159, '201908251855', 41, 1, 16);
 -- ----------------------------
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission`  (
-  `perid` int(11) NOT NULL AUTO_INCREMENT,
-  `pname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `parentid` int(11) DEFAULT NULL,
-  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `isparent` int(11) DEFAULT NULL,
-  `ismenu` int(11) DEFAULT NULL,
+  `perid` INT(11) NOT NULL AUTO_INCREMENT,
+  `pname` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `parentid` INT(11) DEFAULT NULL,
+  `url` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `isparent` INT(11) DEFAULT NULL,
+  `ismenu` INT(11) DEFAULT NULL,
   PRIMARY KEY (`perid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of permission
@@ -227,13 +227,13 @@ INSERT INTO `permission` VALUES (26, '确认发货', 13, '/snack/admin/order/use
 -- ----------------------------
 DROP TABLE IF EXISTS `receiptinfo`;
 CREATE TABLE `receiptinfo`  (
-  `r_id` int(11) NOT NULL AUTO_INCREMENT,
-  `o_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `o_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `o_phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `o_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `r_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `o_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `o_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `o_phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `o_address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`r_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 136 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 136 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of receiptinfo
@@ -250,14 +250,14 @@ INSERT INTO `receiptinfo` VALUES (135, '201908251855', '最代码', '13520109202
 -- ----------------------------
 DROP TABLE IF EXISTS `record`;
 CREATE TABLE `record`  (
-  `record_id` int(11) NOT NULL AUTO_INCREMENT,
-  `s_id` int(11) DEFAULT NULL,
-  `recordDate` date DEFAULT NULL,
-  `recordNumber` int(11) DEFAULT NULL,
+  `record_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `s_id` INT(11) DEFAULT NULL,
+  `recordDate` DATE DEFAULT NULL,
+  `recordNumber` INT(11) DEFAULT NULL,
   PRIMARY KEY (`record_id`) USING BTREE,
   INDEX `s_idfk`(`s_id`) USING BTREE,
   CONSTRAINT `s_idfk` FOREIGN KEY (`s_id`) REFERENCES `snackinfo` (`s_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 52 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of record
@@ -307,11 +307,11 @@ INSERT INTO `record` VALUES (51, 82, '2019-04-04', 2);
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
-  `role_id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `role_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `role_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role_info` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of role
@@ -325,11 +325,11 @@ INSERT INTO `role` VALUES (3, '小角色', '无权限');
 -- ----------------------------
 DROP TABLE IF EXISTS `rolepermission`;
 CREATE TABLE `rolepermission`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) DEFAULT NULL,
-  `perid` int(11) DEFAULT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `role_id` INT(11) DEFAULT NULL,
+  `perid` INT(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of rolepermission
@@ -375,27 +375,27 @@ INSERT INTO `rolepermission` VALUES (37, 2, 26);
 -- ----------------------------
 -- Table structure for snackinfo
 -- ----------------------------
-DROP TABLE IF EXISTS `snackinfo`;
+DROP TABLE IF EXISTS `productinfo`;
 CREATE TABLE `snackinfo`  (
-  `s_id` int(11) NOT NULL AUTO_INCREMENT,
-  `s_batch` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '批次好=生产日期+2位随机数',
-  `s_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `s_price` double DEFAULT NULL,
-  `s_discount` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '折扣',
-  `s_pictureUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `s_brand` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '品牌',
-  `s_place` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '产地',
-  `s_Imported` int(1) DEFAULT NULL COMMENT '是否进口',
-  `s_score` int(11) DEFAULT NULL COMMENT '积分',
-  `s_pDate` date DEFAULT NULL COMMENT '生产日期',
-  `s_qDate` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '保质期',
-  `state` int(11) DEFAULT NULL COMMENT '1---上架，0---草稿，-1--下架',
-  `s_createDate` date DEFAULT NULL COMMENT '上架时间',
-  `s_dese` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '详情',
-  `s_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `s_number` int(11) DEFAULT NULL COMMENT '数量',
+  `s_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `s_batch` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '批次好=生产日期+2位随机数',
+  `s_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `s_price` DOUBLE DEFAULT NULL,
+  `s_discount` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '折扣',
+  `s_pictureUrl` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `s_brand` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '品牌',
+  `s_place` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '产地',
+  `s_Imported` INT(1) DEFAULT NULL COMMENT '是否进口',
+  `s_score` INT(11) DEFAULT NULL COMMENT '积分',
+  `s_pDate` DATE DEFAULT NULL COMMENT '生产日期',
+  `s_qDate` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '保质期',
+  `state` INT(11) DEFAULT NULL COMMENT '1---上架，0---草稿，-1--下架',
+  `s_createDate` DATE DEFAULT NULL COMMENT '上架时间',
+  `s_dese` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '详情',
+  `s_type` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `s_number` INT(11) DEFAULT NULL COMMENT '数量',
   PRIMARY KEY (`s_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 83 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 83 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of snackinfo
@@ -442,19 +442,19 @@ INSERT INTO `snackinfo` VALUES (82, '201811042918', '杀扑膦农药', 100, '1',
 -- ----------------------------
 DROP TABLE IF EXISTS `userinfo`;
 CREATE TABLE `userinfo`  (
-  `u_id` int(11) NOT NULL AUTO_INCREMENT,
-  `u_realname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '真实姓名',
-  `u_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户名',
-  `u_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密码',
-  `u_money` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '钱包金额',
-  `u_phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '手机号',
-  `u_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '邮箱',
-  `u_sex` char(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '性别',
-  `u_resgistDate` date DEFAULT NULL COMMENT '出生日期',
-  `u_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '地址',
-  `u_score` int(11) DEFAULT NULL COMMENT '积分总数',
+  `u_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `u_realname` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '真实姓名',
+  `u_username` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户名',
+  `u_password` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '密码',
+  `u_money` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '钱包金额',
+  `u_phone` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '手机号',
+  `u_email` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '邮箱',
+  `u_sex` CHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '性别',
+  `u_resgistDate` DATE DEFAULT NULL COMMENT '出生日期',
+  `u_address` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '地址',
+  `u_score` INT(11) DEFAULT NULL COMMENT '积分总数',
   PRIMARY KEY (`u_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = INNODB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of userinfo
@@ -468,26 +468,26 @@ INSERT INTO `userinfo` VALUES (20, '最代码', 'zuidaima', '123456', '9964.0', 
 -- Procedure structure for haha
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `haha`;
-delimiter ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `haha`(in a int,in b int)
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `haha`(IN a INT,IN b INT)
 BEGIN
-set @x=0;
-set @x =a+b;
-SELECT @x as num;
-end
+SET @x=0;
+SET @x =a+b;
+SELECT @x AS num;
+END
 ;;
-delimiter ;
+DELIMITER ;
 
 -- ----------------------------
 -- Procedure structure for jk
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `jk`;
-delimiter ;;
+DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `jk`()
 BEGIN
- SELECT * from admin;
-end
+ SELECT * FROM admin;
+END
 ;;
-delimiter ;
+DELIMITER ;
 
 SET FOREIGN_KEY_CHECKS = 1;
