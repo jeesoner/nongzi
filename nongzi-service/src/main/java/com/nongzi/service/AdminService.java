@@ -10,6 +10,19 @@ import java.util.List;
  */
 public interface AdminService {
 
+    /**
+     * 根据id查询admin
+     *
+     * @param id
+     * @return
+     */
     Admin findById(Integer id);
+
+    /**
+     * 查询所有的admin用户
+     *
+     * @return
+     */
+    List<Admin> findAll();
 
 }
