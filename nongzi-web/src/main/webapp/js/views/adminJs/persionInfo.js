@@ -1,10 +1,9 @@
 $(document).ready(function () {
     $.ajax({
-        url: '/snack' + '/user/mainSelectAdminuser',
-        type: 'post',
+        url: '/nongzi' + '/admin/info/profile',
+        type: 'get',
         dataType: "json",
         success: function (result) {
-            result = $.parseJSON(result);
             if (result.errCode = '000000') {
                 $("#adId").val(result.data.adId);
                 $("#adUsername").val(result.data.adUsername);

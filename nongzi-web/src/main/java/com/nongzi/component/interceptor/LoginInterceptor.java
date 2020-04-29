@@ -23,8 +23,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURI();
-        System.out.println(url);
-        System.out.println(request.getMethod());
         // 1.根据url进行拦截
         if (url.indexOf("/admin/login") != -1) {
             return true;
