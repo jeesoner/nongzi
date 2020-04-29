@@ -4,12 +4,8 @@ import com.nongzi.pojo.Admin;
 import com.nongzi.pojo.enums.ResultCode;
 import com.nongzi.pojo.vo.ResultVO;
 import com.nongzi.service.AdminService;
-import com.nongzi.service.impl.AdminServiceImpl;
-import com.nongzi.util.JsonUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,8 +13,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @author: sakura
- * @date: 2020/4/23 23:19
+ * @author sakura
+ * @date 2020/4/23 23:19
  */
 @Controller
 public class TestController {
@@ -43,6 +39,6 @@ public class TestController {
     @ResponseBody
     public ResultVO restful() {
         List<Admin> admins = adminService.findAll();
-        return new ResultVO(ResultCode.REQUIRED_SUCCESS, "你好！", admins);
+        return new ResultVO(ResultCode.REQUIRED_SUCCESS, "你好！");
     }
 }

@@ -12,7 +12,7 @@ $(document).ready(function(){
 	}
 	$(document).ready(function(){
 		$(".headerLogout").click(function() {
-		location.href="/snack/shop/userlogout";
+		location.href="/nongzi/shop/userlogout";
 		});
 	});
 	

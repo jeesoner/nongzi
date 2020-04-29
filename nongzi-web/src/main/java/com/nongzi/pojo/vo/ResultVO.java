@@ -8,14 +8,14 @@ import java.io.Serializable;
 /**
  * 用于封装返回结果的VO
  *
- * @author: saykuray
- * @date: 2020/4/27 10:56
+ * @author saykuray
+ * @date 2020/4/27 10:56
  */
 public class ResultVO<T> implements Serializable {
 
     // 状态码
     private int status;
-    // 保存返回到前段的数据
+    // 保存返回到前端的数据
     private T data;
     // 提示信息
     private String msg;
@@ -28,6 +28,7 @@ public class ResultVO<T> implements Serializable {
 
     public ResultVO(ResultCode resultCode) {
         this.status = resultCode.getCode();
+        this.msg = resultCode.getName();
     }
 
     public ResultVO(ResultCode resultCode, String msg) {
@@ -35,7 +36,7 @@ public class ResultVO<T> implements Serializable {
         this.msg = msg;
     }
 
-    public ResultVO(ResultCode resultCode, String msg, T data) {
+    public ResultVO(ResultCode resultCode, T data, String msg) {
         this.status = resultCode.getCode();
         this.msg = msg;
         this.data = data;
