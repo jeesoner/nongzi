@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * @author: sakura
- * @date: 2020/4/24 12:08
+ * @author sakura
+ * @date 2020/4/24 12:08
  */
 public class MybatisTest {
 
