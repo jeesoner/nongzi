@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface AdminMenuService {
 
-    List<AdminMenu> findAll();
+    List<AdminMenu> findAllByRoleId(int id);
 
 }

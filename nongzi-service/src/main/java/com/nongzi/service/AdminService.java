@@ -1,6 +1,8 @@
 package com.nongzi.service;
 
+import com.github.pagehelper.PageInfo;
 import com.nongzi.pojo.Admin;
+import com.nongzi.pojo.AdminInfoDO;
 
 import java.util.List;
 
@@ -33,5 +35,27 @@ public interface AdminService {
      * @return
      */
     Admin login(String username, String password);
+
+    /**
+     * 通过主键更新管理员名和密码
+     * @param admin
+     * @return 更新的条数
+     */
+    int updateAdminById(Admin admin);
+
+    /**
+     * 添加管理员
+     */
+    int insertAdmin(Admin admin);
+
+    /**
+     * 删除管理员
+     */
+    int deleteAdminById(int id);
+
+    /**
+     * 分页查询管理员
+     */
+    PageInfo<AdminInfoDO> selectAdminByPage(int currentPage, int pageSize, AdminInfoDO adminInfo);
 
 }

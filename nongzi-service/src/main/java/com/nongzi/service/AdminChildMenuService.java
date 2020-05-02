@@ -11,7 +11,7 @@ import java.util.List;
 public interface AdminChildMenuService {
 
     /**
-     * 查询所有的用户子菜单
+     * 根据角色查询用户的菜单
      *
      * @return
      */

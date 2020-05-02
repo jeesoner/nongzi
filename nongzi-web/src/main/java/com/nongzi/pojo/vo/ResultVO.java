@@ -31,9 +31,9 @@ public class ResultVO<T> implements Serializable {
         this.msg = resultCode.getName();
     }
 
-    public ResultVO(ResultCode resultCode, String msg) {
+    public ResultVO(ResultCode resultCode, T data) {
         this.status = resultCode.getCode();
-        this.msg = msg;
+        this.data = data;
     }
 
     public ResultVO(ResultCode resultCode, T data, String msg) {

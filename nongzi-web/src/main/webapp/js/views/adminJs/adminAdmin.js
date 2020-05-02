@@ -2,12 +2,13 @@ var integralModule = angular.module("adminAdminApp", []);
 integralModule.controller("adminAdminCtrl", function ($http, $scope) {
     initBind($http, $scope);
     $scope.processParams = function (data) {
-        var params = [];
-        for (var p in data) {
+        let params = [];
+        for (let p in data) {
             if (data.hasOwnProperty(p)) {
                 params.push(p + '=' + encodeURIComponent(data[p]));
             }
         }
+        console.log(params);
         return params.join('&');
     };
 
@@ -30,13 +31,12 @@ function initBind($http, $scope) {
     $('#addAdmin').on('click', function () {
         var params = getDateNew();
         $.ajax({
-            url: '/snack' + '/admin/user/addNewAdmin',
+            url: '/nongzi' + '/admin/people/admin/addAdmin',
             data: params,
             type: 'post',
             dataType: "json",
             success: function (result) {
-                result = $.parseJSON(result);
-                if (result.errCode = '000000') {
+                if (result.status = 10000) {
                     swal("新建成功!", "success");
                     $('#newAdminModal').modal('hide');
                     createTable();
@@ -55,18 +55,17 @@ function initBind($http, $scope) {
 
     //修改
     $('#updateAdmin').on('click', function () {
-        var params = getDate();
+        let params = getDate();
         $http({
             method: 'POST',
-            url: '/snack' + '/admin/user/updateAdminById',
+            url: '/nongzi' + '/admin/people/admin/updateAdmin',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: params,
             transformRequest: $scope.processParams
         }).success(function (result) {
-            result = $.parseJSON(result);
-            if (result.errCode = '000000') {
+            if (result.status = 10000) {
                 swal("修改成功!", "success");
                 $('#updateAdminModal').modal('hide');
                 createTable();
@@ -79,17 +78,16 @@ function initBind($http, $scope) {
 
     //加载修改
     $('#table_id_example').on('click', '.update', function () {
-        var params = $(this).attr('data-id');
+        let params = $(this).attr('data-id');
         $.ajax({
-            url: '/snack' + '/admin/user/updateGoAdminById',
+            url: '/nongzi' + '/admin/people/admin/adminInfo',
             data: {
                 "adId": params
             },
             type: 'post',
             dataType: "json",
             success: function (result) {
-                result = $.parseJSON(result);
-                if (result.errCode = '000000') {
+                if (result.status = 10000) {
                     $("#adIdTwo").val(result.data.adId);
                     $("#adPasswordTwo").val(result.data.adPassword);
                     $("#adUsernameTwo").val(result.data.adUsername);
@@ -118,26 +116,25 @@ function initBind($http, $scope) {
 
     //删除
     $('#table_id_example').on('click', '.delete', function () {
-        var params = $(this).attr('data-id');
+        let params = $(this).attr('data-id');
         swal({
             title: "确定删除？",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            confirmButtonColor: "#dd6b55",
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             closeOnConfirm: false,
         }, function () {
             $.ajax({
-                url: '/snack' + '/admin/user/delAdminById',
+                url: '/nongzi' + '/admin/people/admin',
                 data: {
                     "adId": params
                 },
                 type: 'post',
                 dataType: "json",
                 success: function (result) {
-                    result = $.parseJSON(result);
-                    if (result.errCode = '000000') {
+                    if (result.status = 10000) {
                         swal("删除成功!", "success");
                         createTable();
                     } else {
@@ -183,12 +180,12 @@ function createTable() {
         searching: false,
         ordering: false,
         language: {
-            url: '/snack' + '/js/china.json'
+            url: '/nongzi' + '/js/china.json'
         },
         "aLengthMenu": [10],
         serverSide: true,
         ajax: {
-            url: "/snack" + "/admin/user/adminAdminLimit",
+            url: "/nongzi" + "/admin/people/admin/limit",
             dataSrc: "data",
             data: {
                 "adUsername": $("#adUsername").val(),

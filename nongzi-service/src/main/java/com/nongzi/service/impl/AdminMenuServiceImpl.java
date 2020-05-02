@@ -19,7 +19,12 @@ public class AdminMenuServiceImpl implements AdminMenuService {
     private AdminMenuMapper adminMenuMapper;
 
     @Override
-    public List<AdminMenu> findAll() {
-        return adminMenuMapper.selectByExample(null);
+    public List<AdminMenu> findAllByRoleId(int id) {
+        List<AdminMenu> adminMenus = adminMenuMapper.selectByExample(null);
+        if (id == 2) { // 客服
+            adminMenus.remove(5);
+            adminMenus.remove(1);
+        }
+        return adminMenus;
     }
 }

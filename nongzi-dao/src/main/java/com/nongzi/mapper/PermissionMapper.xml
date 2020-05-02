@@ -225,4 +225,7 @@
       ismenu = #{ismenu,jdbcType=INTEGER}
     where perid = #{perid,jdbcType=INTEGER}
   </update>
+  <select id="selectRolePermission" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from permission where perid in (select perid from rolepermission where role_id = #{roleId})
+  </select>
 </mapper>

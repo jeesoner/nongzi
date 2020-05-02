@@ -3,6 +3,8 @@ package com.nongzi.dao;
 import com.nongzi.pojo.Admin;
 import com.nongzi.pojo.AdminExample;
 import java.util.List;
+
+import com.nongzi.pojo.AdminInfoDO;
 import org.apache.ibatis.annotations.Param;
 
 public interface AdminMapper {
@@ -27,4 +29,6 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    List<AdminInfoDO> selectAdminInfo(AdminInfoDO adminInfo);
 }

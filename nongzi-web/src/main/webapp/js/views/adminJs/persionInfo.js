@@ -1,10 +1,11 @@
 $(document).ready(function () {
+    // 获取管理员的个人信息
     $.ajax({
-        url: '/nongzi' + '/admin/info/profile',
+        url: '/nongzi' + '/admin/info/profile/get',
         type: 'get',
         dataType: "json",
         success: function (result) {
-            if (result.errCode = '000000') {
+            if (result.status == '10000') {
                 $("#adId").val(result.data.adId);
                 $("#adUsername").val(result.data.adUsername);
                 $("#adPassword").val(result.data.adPassword);
@@ -22,8 +23,9 @@ $(document).ready(function () {
 
     $("#changeAdminUser").on('click', function () {
         $.ajax({
-            url: '/snack' + '/user/mainUpdateAdminuser',
+            url: '/nongzi' + '/admin/info/profile',
             data: {
+                "_method": "put",
                 "adId": $("#adId").val(),
                 "adUsername": $("#adUsername").val(),
                 "adPassword": $("#adPassword").val(),
@@ -32,11 +34,12 @@ $(document).ready(function () {
             type: 'post',
             dataType: "json",
             success: function (result) {
-                result = $.parseJSON(result);
-                if (result.errCode = '000000') {
+                if (result.status == 10000) {
                     swal('修改成功', 'success');
                     $("#adUsername").val($("#adUsername").val());
                     $("#adPassword").val($("#adPassword").val());
+                } else {
+                    swal('修改失败', result.msg);
                 }
             }
         });

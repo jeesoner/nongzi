@@ -193,4 +193,22 @@
       role_id = #{roleId,jdbcType=INTEGER}
     where ad_id = #{adId,jdbcType=INTEGER}
   </update>
+  <resultMap id="AdminInfoResultMap" type="com.nongzi.pojo.AdminInfoDO">
+    <id column="ad_id" jdbcType="INTEGER" property="adId" />
+    <result column="ad_username" jdbcType="VARCHAR" property="adUsername" />
+    <result column="ad_password" jdbcType="VARCHAR" property="adPassword" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_info" jdbcType="VARCHAR" property="roleInfo" />
+  </resultMap>
+  <select id="selectAdminInfo" parameterType="com.nongzi.pojo.AdminInfoDO" resultMap="AdminInfoResultMap">
+        select admin.ad_id, admin.ad_username, admin.ad_password, role.role_name, role.role_info
+        from admin, role
+        where admin.role_id = role.role_id
+        <if test="adUsername != null">
+          and admin.ad_username = #{adUsername}
+        </if>
+        <if test="roleName != null">
+          and role.role_name = #{roleName}
+        </if>
+  </select>
 </mapper>

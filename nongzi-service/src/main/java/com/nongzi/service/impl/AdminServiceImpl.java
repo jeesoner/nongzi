@@ -1,9 +1,11 @@
 package com.nongzi.service.impl;
 
-import com.nongzi.exception.ServiceException;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.nongzi.dao.AdminMapper;
 import com.nongzi.pojo.Admin;
 import com.nongzi.pojo.AdminExample;
+import com.nongzi.pojo.AdminInfoDO;
 import com.nongzi.service.AdminService;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +44,27 @@ public class AdminServiceImpl implements AdminService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public int updateAdminById(Admin admin) {
+        return adminMapper.updateByPrimaryKey(admin);
+    }
+
+    @Override
+    public int insertAdmin(Admin admin) {
+        return adminMapper.insert(admin);
+    }
+
+    @Override
+    public int deleteAdminById(int id) {
+        return adminMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public PageInfo<AdminInfoDO> selectAdminByPage(int currentPage, int pageSize, AdminInfoDO adminInfo) {
+        // 开启分页
+        PageHelper.startPage(currentPage, pageSize);
+        return new PageInfo<>(adminMapper.selectAdminInfo(adminInfo));
     }
 }
