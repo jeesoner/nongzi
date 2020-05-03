@@ -1,5 +1,6 @@
 package com.nongzi.dao;
 
+import com.nongzi.pojo.AdminOrderDO;
 import com.nongzi.pojo.Order;
 import com.nongzi.pojo.OrderExample;
 import java.util.List;
@@ -27,4 +28,8 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<AdminOrderDO> selectAdminOrder(AdminOrderDO adminOrder);
+
+    int updateTypeById(Order order);
 }

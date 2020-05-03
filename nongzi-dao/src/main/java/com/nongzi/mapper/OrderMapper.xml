@@ -223,4 +223,49 @@
       o_type = #{oType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <resultMap id="adminOrderMap" type="com.nongzi.pojo.AdminOrderDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="o_id" jdbcType="VARCHAR" property="oId" />
+    <result column="o_name" jdbcType="VARCHAR" property="oName" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="u_username" jdbcType="VARCHAR" property="uUsername" />
+    <result column="o_phone" jdbcType="VARCHAR" property="oPhone" />
+    <result column="e_id" jdbcType="INTEGER" property="eId" />
+    <result column="o_time" jdbcType="VARCHAR" property="oTime" />
+    <result column="o_type" jdbcType="INTEGER" property="oType" />
+    <result column="r_id" jdbcType="INTEGER" property="rId" />
+    <result column="o_address" jdbcType="VARCHAR" property="oAddress" />
+    <result column="ad_id" jdbcType="INTEGER" property="adId" />
+    <result column="ad_username" jdbcType="VARCHAR" property="adUsername" />
+  </resultMap>
+  <select id="selectAdminOrder" parameterType="com.nongzi.pojo.AdminOrderDO" resultMap="adminOrderMap">
+    SELECT
+    id ,o.o_id, r.o_name, o.u_id, u.u_username,
+    r.o_phone, o.e_id, o.o_time, o.o_type,
+    r.r_id, r.o_address, a.ad_id, a.ad_username
+    FROM `order` o INNER JOIN receiptinfo r ON o.o_id=r.o_id
+    LEFT JOIN admin a ON a.ad_id=o.e_id
+    LEFT JOIN userinfo  u ON u.u_id=o.u_id
+    <where>
+      <if test="oId != null and oId != '' ">
+        and o.o_id = #{oId} 
+      </if>
+      <if test="adUsername != null and adUsername != '' ">
+        and a.ad_username = #{adUsername} 
+      </if>
+      <if test="oTimeStart != null ">
+        <![CDATA[ and o.o_time >= #{oTimeStart} ]]>
+      </if>
+      <if test="oTimeEnd != null ">
+        <![CDATA[ and o.o_time <= #{oTimeEnd} ]]>
+      </if>
+    </where>
+    ORDER BY o_type ,o.o_time DESC
+  </select>
+  <update id="updateTypeById" parameterType="com.nongzi.pojo.Order">
+    update `order`
+    set o_type = #{oType},
+    e_id = #{eId}
+    where id = #{id}
+  </update>
 </mapper>

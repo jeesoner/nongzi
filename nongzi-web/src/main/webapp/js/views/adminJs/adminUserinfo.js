@@ -34,15 +34,14 @@ function initBind($http, $scope) {
         var params = getDate();
         $http({
             method: 'POST',
-            url: '/snack' + '/admin/user/updateUserinfoById',
+            url: '/nongzi' + '/admin/people/user/update',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: params,
             transformRequest: $scope.processParams
         }).success(function (result) {
-            result = $.parseJSON(result);
-            if (result.errCode = '000000') {
+            if (result.status == 10000) {
                 swal("修改成功!", "success");
                 $('#personSubCouponModal').modal('hide');
                 createTable();
@@ -58,15 +57,14 @@ function initBind($http, $scope) {
         var uSex = document.getElementsByName("uSex")
         var params = $(this).attr('data-id');
         $.ajax({
-            url: '/snack' + '/admin/user/updateGoUserinfoById',
+            url: '/nongzi' + '/admin/people/user/id',
             data: {
                 "uId": params
             },
             type: 'post',
             dataType: "json",
             success: function (result) {
-                result = $.parseJSON(result);
-                if (result.errCode = '000000') {
+                if (result.status == 10000) {
                     $("#uId").val(result.data.uId);
                     $("#uUsernameTwo").val(result.data.uUsername);
                     $("#uPassword").val(result.data.uPassword);
@@ -103,15 +101,14 @@ function initBind($http, $scope) {
             closeOnConfirm: false,
         }, function () {
             $.ajax({
-                url: '/snack' + '/admin/user/delUserinfoById',
+                url: '/nongzi' + '/admin/people/user/del',
                 data: {
                     "uId": params
                 },
                 type: 'post',
                 dataType: "json",
                 success: function (result) {
-                    result = $.parseJSON(result);
-                    if (result.errCode = '000000') {
+                    if (result.status == 10000) {
                         swal("删除成功!", "success");
                         createTable();
                     } else {
@@ -165,7 +162,7 @@ function createTable() {
         "aLengthMenu": [10],
         serverSide: true,
         ajax: {
-            url: "/snack" + "/admin/user/adminUserinfoLimit",
+            url: "/nongzi" + "/admin/people/user/page",
             dataSrc: "data",
             data: {
                 "uUsername": $("#uUsername").val(),

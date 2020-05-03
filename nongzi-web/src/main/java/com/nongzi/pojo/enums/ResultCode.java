@@ -17,7 +17,8 @@ public enum ResultCode {
     PERMISSION_NOT_ENOUGH(20002, "权限不足"),
     TOKEN_OUTDATED(20003, "Token过期"),
     BUSINESS_FAIL(30001, "业务逻辑错误"),
-    SYSTEM_ERROR(30002, "系统错误");
+    SYSTEM_ERROR(30002, "系统错误"),
+    NO_GOODS(40001, "货物不足");
 
     // 状态码
     private int code;

@@ -276,7 +276,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>是否进口:</td>
+                                <td>农资类别:</td>
                                 <td>
                                     <select id="sTypeU">
                                         <option>化肥类</option>

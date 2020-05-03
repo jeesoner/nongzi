@@ -32,7 +32,7 @@
 		<thead>
 			<tr>
 				<th class="text-center">订单号</th>
-				<th class="text-center">下单号</th>
+				<th class="text-center">下单人</th>
 				<th class="text-center">收货人</th>
 				<th class="text-center">联系方式</th>
 				<th class="text-center">地址</th>

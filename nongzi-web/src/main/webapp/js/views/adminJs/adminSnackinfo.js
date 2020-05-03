@@ -51,7 +51,7 @@ function initBind($http, $scope) {
         formFile.append("sType", $("#sType").val());
         var data = formFile;
         $.ajax({
-            url: '/snack' + '/admin/snackinfo/addAdminSnack',
+            url: '/nongzi' + '/admin/product/add',
             data: data,
             type: 'post',
             dataType: "json",
@@ -59,8 +59,7 @@ function initBind($http, $scope) {
             processData: false,//用于对data参数进行序列化处理 这里必须false
             contentType: false, //必须
             success: function (result) {
-                result = $.parseJSON(result);
-                if (result.errCode = '000000') {
+                if (result.status == 10000) {
                     swal("添加成功!", "success");
                     document.getElementById("adminSnackinfForm").reset();
                     $('#newAdminSnackinfoModal').modal('hide');
@@ -83,17 +82,16 @@ function initBind($http, $scope) {
     $('#table_id_example').on('click', '.update', function () {
         var params = $(this).attr('data-id');
         $.ajax({
-            url: '/snack' + '/admin/snackinfo/selectAdminUserinfoBysId',
+            url: '/nongzi' + '/admin/product/id',
             data: {
                 "sId": params
             },
             type: 'post',
             dataType: "json",
             success: function (result) {
-                result = $.parseJSON(result);
-                if (result.errCode = '000000') {
+                if (result.status == 10000) {
                     $("#sIdU").val(result.data.sId);
-                    $("#picUrlU").attr('src', "/snack/image/" + result.data.sPictureurl);
+                    $("#picUrlU").attr('src', "/nongzi/image/" + result.data.sPictureurl);
                     $("#sNameU").val(result.data.sName);
                     $("#sPriceU").val(result.data.sPrice);
                     $("#sDiscountU").val(result.data.sDiscount);
@@ -140,7 +138,7 @@ function initBind($http, $scope) {
         formFile.append("sType", $("#sTypeU").val());
         var data = formFile;
         $.ajax({
-            url: '/snack' + '/admin/snackinfo/updateAdminSnack',
+            url: '/nongzi' + '/admin/product/update',
             data: data,
             type: 'post',
             dataType: "json",
@@ -149,8 +147,7 @@ function initBind($http, $scope) {
             contentType: false, //必须
             success: function (result) {
                 $("#fileU").val("");
-                result = $.parseJSON(result);
-                if (result.errCode = '000000') {
+                if (result.status == 10000) {
                     swal("修改成功!", "success");
                     $('#updateAdminSnackinfoModal').modal('hide');
                     createTable();
@@ -181,15 +178,14 @@ function initBind($http, $scope) {
             closeOnConfirm: false,
         }, function () {
             $.ajax({
-                url: '/snack' + '/admin/snackinfo/delAdminUserinfo',
+                url: '/nongzi' + '/admin/product/del',
                 data: {
                     "sId": params
                 },
                 type: 'post',
                 dataType: "json",
                 success: function (result) {
-                    result = $.parseJSON(result);
-                    if (result.errCode = '000000') {
+                    if (result.status == 10000) {
                         swal("删除成功!", "success");
                         createTable();
                     } else {
@@ -217,12 +213,12 @@ function createTable() {
         searching: false,
         ordering: false,
         language: {
-            url: '/snack' + '/js/china.json'
+            url: '/nongzi' + '/js/china.json'
         },
         "aLengthMenu": [5],
         serverSide: true,
         ajax: {
-            url: "/snack" + "/admin/snackinfo/adminSnackinfoLimit",
+            url: "/nongzi" + "/admin/product/page",
             dataSrc: "data",
             data: {
                 "sType": $("#sType").val(),
@@ -235,7 +231,7 @@ function createTable() {
         columns: [
             {
                 data: 'sPictureurl', render: function (data, type, row) {
-                    return "<img height='60' width='60' src='/snack/image/" + data + "'/>";
+                    return "<img height='60' width='60' src='/nongzi/image/" + data + "'/>";
                 }
             },
             {data: 'sBatch'},

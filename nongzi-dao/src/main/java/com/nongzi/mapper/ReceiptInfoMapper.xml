@@ -202,7 +202,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.nongzi.pojo.ReceiptInfo">
     update receiptinfo
-    set o_id = #{oId,jdbcType=VARCHAR},
+    set
       o_name = #{oName,jdbcType=VARCHAR},
       o_phone = #{oPhone,jdbcType=VARCHAR},
       o_address = #{oAddress,jdbcType=VARCHAR}

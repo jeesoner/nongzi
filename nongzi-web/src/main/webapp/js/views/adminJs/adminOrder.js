@@ -27,15 +27,14 @@ function initBind($http, $scope, $timeout) {
             closeOnConfirm: false,
         }, function () {
             $.ajax({
-                url: '/snack' + '/admin/order/deleteAdminOrder',
+                url: '/nongzi' + '/admin/order/del',
                 data: {
                     "oId": params
                 },
                 type: 'post',
                 dataType: "json",
                 success: function (result) {
-                    result = $.parseJSON(result);
-                    if (result.errCode = '000000') {
+                    if (result.status == 10000) {
                         swal("删除成功!", "success");
                         createTable();
                     } else {
@@ -64,18 +63,17 @@ function initBind($http, $scope, $timeout) {
         showModal($('#orderSnackModal'));
     });
 
-    //加载修改
+    // 加载收货人地址
     $('#table_id_example').on('click', '.update', function () {
         var params = $(this).attr('data-id');
         $.ajax({
-            url: '/snack' + '/admin/order/updateSelectAdminOrder',
+            url: '/nongzi' + '/admin/order/receiptInfo',
             data: {
                 "rId": params
             },
             type: 'post',
             dataType: "json",
             success: function (result) {
-                result = $.parseJSON(result);
                 $("#rIdT").val(result.data.rId);
                 $("#oNameT").val(result.data.oName);
                 $("#oPhoneT").val(result.data.oPhone);
@@ -88,19 +86,19 @@ function initBind($http, $scope, $timeout) {
         });
     });
 
-    //更新rece
+    //更新收货人地址
     $("#updateReceptinfo").on('click', function () {
         var params = "rId=" + $("#rIdT").val() + "&oName=" + $("#oNameT").val()
             + "&oPhone=" + $("#oPhoneT").val() + "&oAddress=" + $("#oAddressT").val();
         $http({
             method: 'POST',
-            url: '/snack' + '/admin/order/updateAdminOrder',
+            url: '/nongzi' + '/admin/order/update',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: params
         }).success(function (result) {
-            if (result.errCode = '000000') {
+            if (result.status == 10000) {
                 swal("修改成功!", "success");
                 $('#orderSnackUpdateModal').modal('hide');
                 createTable();
@@ -111,6 +109,7 @@ function initBind($http, $scope, $timeout) {
         })
     })
 
+    // 发货
     $('#table_id_example').on('click', '.pushSnack', function () {
         var params = $(this).attr('data-id');
         swal({
@@ -124,7 +123,7 @@ function initBind($http, $scope, $timeout) {
             showLoaderOnConfirm: true
         }, function () {
             $.ajax({
-                url: '/snack' + '/admin/order/userOrderConfirm',
+                url: '/nongzi' + '/admin/order/confirm',
                 data: {
                     "id": params,
                     "typeNum": 0
@@ -132,15 +131,13 @@ function initBind($http, $scope, $timeout) {
                 type: 'post',
                 dataType: "json",
                 success: function (result) {
-                    result = $.parseJSON(result);
-                    if (result.errCode = '000000') {
-                        if (result.data == -5) {
-                            swal("农资数量不足!", "error");
-                        } else {
-                            swal("发货成功!", "success");
-                            createTable();
-                        }
-                    } else {
+                    if (result.status == 10000) {
+                        swal("发货成功!", "success");
+                        createTable();
+                    } else if (result.status == 40001) {
+                        swal("农资数量不足!", "error");
+                    }
+                    else {
                         swal("发货失败!", "error");
                         createTable();
                     }
@@ -159,11 +156,11 @@ function initBind($http, $scope, $timeout) {
     });
 
 
-    //加载详情修改
+    //加载订单的单条数据
     $('#table_snack_example').on('click', '.updateOrderDetial', function () {
         var params = $(this).attr('data-id');
         $.ajax({
-            url: '/snack' + '/admin/order/updateSelectAdminOrderDetial',
+            url: '/nongzi' + '/admin/order/detail',
             data: {
                 "dId": params
             },
@@ -171,9 +168,8 @@ function initBind($http, $scope, $timeout) {
             dataType: "json",
             success: function (result) {
                 $('#orderSnackModal').modal('hide');
-                result = $.parseJSON(result);
                 $("#dId").val(result.data.dId);
-                $("#picUrl").attr('src', "/snack/image/" + result.data.picUrl);
+                $("#picUrl").attr('src', "/nongzi/image/" + result.data.picUrl);
                 $("#sName").val(result.data.sName);
                 $("#oMoney").val(result.data.oMoney);
                 $("#oNum").val(result.data.oNum);
@@ -192,13 +188,13 @@ function initBind($http, $scope, $timeout) {
             + "&oNum=" + $("#oNum").val();
         $http({
             method: 'POST',
-            url: '/snack' + '/admin/order/updateOrderdetail',
+            url: '/nongzi' + '/admin/order/update',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: params
         }).success(function (result) {
-            if (result.errCode = '000000') {
+            if (result.errCode == 10000) {
                 $('#orderdetailUpdateModal').modal('hide');
                 createsnackTable($("#oldoId").val(), $("#oldoType").val());
                 showModal($('#orderSnackModal'));
@@ -248,6 +244,7 @@ function initBind($http, $scope, $timeout) {
 
 var snackDatatable = null;
 
+// 用于查看订单详情
 function createsnackTable(oId, oType) {
     if (snackDatatable != null) {
         snackDatatable.destroy();
@@ -257,12 +254,12 @@ function createsnackTable(oId, oType) {
         searching: false,
         ordering: false,
         language: {
-            url: '/snack' + '/js/china.json'
+            url: '/nongzi' + '/js/china.json'
         },
         "aLengthMenu": [10],
         serverSide: true,
         ajax: {
-            url: "/snack" + "/shop/selectOrderSnack",
+            url: "/nongzi" + "/admin/order/detail",
             dataSrc: "data",
             data: {
                 "oId": oId,
@@ -272,7 +269,7 @@ function createsnackTable(oId, oType) {
         columns: [
             {
                 data: 'picUrl', render: function (data, type, row) {
-                    return "<img height='60' width='60' src='/snack/image/" + data + "'/>";
+                    return "<img height='60' width='60' src='/nongzi/image/" + data + "'/>";
                 }
             },
             {data: 'sName'},
@@ -295,6 +292,7 @@ function createsnackTable(oId, oType) {
 
 var datatable = null;
 
+// 加载初始页面数据
 function createTable() {
     if (datatable != null) {
         datatable.destroy();
@@ -304,16 +302,16 @@ function createTable() {
         searching: false,
         ordering: false,
         language: {
-            url: '/snack' + '/js/china.json'
+            url: '/nongzi' + '/js/china.json'
         },
         "aLengthMenu": [10],
         serverSide: true,
         ajax: {
-            url: "/snack" + "/admin/order/adminOrderLimit",
+            url: "/nongzi" + "/admin/order/list",
             dataSrc: "data",
             data: {
                 "oId": $("#oId").val(),
-                "adUserName": $("#adUserName").val(),
+                "adUsername": $("#adUserName").val(),
                 "oTimeStart": $("#oTimeStart").val(),
                 "oTimeEnd": $("#oTimeEnd").val()
             },

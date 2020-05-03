@@ -59,7 +59,7 @@ function pieMap() {
     //获得图表的options对象
     var options = option;
     $.ajax({
-        url: '/snack' + '/admin/map/adminPieMapList',
+        url: '/nongzi' + '/admin/chart/statistic',
         data: {
             "startDate": $("#startDate").val(),
             "endDate": $("#endDate").val()
@@ -67,7 +67,7 @@ function pieMap() {
         type: 'post',
         dataType: "json",
         success: function (result) {
-            options.series[0].data = result;
+            options.series[0].data = result.data;
             myChart.hideLoading();
             myChart.setOption(options);
         }

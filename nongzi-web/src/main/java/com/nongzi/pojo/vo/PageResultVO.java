@@ -15,11 +15,11 @@ public class PageResultVO<T> implements Serializable {
     /**
      * 查询到的总记录数
      */
-    private int recordsTotal;
+    private long recordsTotal;
     /**
      * 过滤后的记录数
      */
-    private int recordsFiltered;
+    private long recordsFiltered;
 
     /**
      * 数据列表
@@ -31,7 +31,7 @@ public class PageResultVO<T> implements Serializable {
      */
     private String error;
 
-    public PageResultVO(int recordsTotal, int recordsFiltered, List<T> data) {
+    public PageResultVO(long recordsTotal, long recordsFiltered, List<T> data) {
         this.recordsTotal = recordsTotal;
         this.recordsFiltered = recordsFiltered;
         this.data = data;
@@ -45,19 +45,19 @@ public class PageResultVO<T> implements Serializable {
         this.draw = draw;
     }
 
-    public int getRecordsTotal() {
+    public long getRecordsTotal() {
         return recordsTotal;
     }
 
-    public void setRecordsTotal(int recordsTotal) {
+    public void setRecordsTotal(long recordsTotal) {
         this.recordsTotal = recordsTotal;
     }
 
-    public int getRecordsFiltered() {
+    public long getRecordsFiltered() {
         return recordsFiltered;
     }
 
-    public void setRecordsFiltered(int recordsFiltered) {
+    public void setRecordsFiltered(long recordsFiltered) {
         this.recordsFiltered = recordsFiltered;
     }
 

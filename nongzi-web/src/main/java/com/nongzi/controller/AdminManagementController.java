@@ -40,8 +40,8 @@ public class AdminManagementController {
                                            AdminInfoDO adminInfo) {
         if (StringUtils.isEmpty(adminInfo.getAdUsername())) adminInfo.setAdUsername(null);
         if (StringUtils.isEmpty(adminInfo.getRoleName())) adminInfo.setRoleName(null);
-        PageInfo<AdminInfoDO> pageInfo = adminService.selectAdminByPage(start, length, adminInfo);
-        return new PageResultVO<>(pageInfo.getSize(), pageInfo.getSize(), pageInfo.getList());
+        PageInfo<AdminInfoDO> pageInfo = adminService.selectAdminByPage(start / length + 1, length, adminInfo);
+        return new PageResultVO<>(pageInfo.getTotal(), pageInfo.getTotal(), pageInfo.getList());
     }
 
     /**

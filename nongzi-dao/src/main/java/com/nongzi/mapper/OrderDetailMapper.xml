@@ -208,4 +208,30 @@
       o_money = #{oMoney,jdbcType=DOUBLE}
     where d_id = #{dId,jdbcType=INTEGER}
   </update>
+  <resultMap id="orderDetailMap" type="com.nongzi.pojo.OrderDetailDO">
+    <id column="d_id" jdbcType="INTEGER" property="dId"/>
+    <result column="s_name" jdbcType="VARCHAR" property="sName"/>
+    <result column="s_pictureUrl" jdbcType="VARCHAR" property="picUrl"/>
+    <result column="o_id" jdbcType="VARCHAR" property=""/>
+    <result column="o_num" jdbcType="INTEGER" property="oNum"/>
+    <result column="o_money" jdbcType="DOUBLE" property="oMoney"/>
+  </resultMap>
+  <select id="selectOrderDetailByoId" parameterType="java.lang.String" resultMap="orderDetailMap">
+    SELECT t.d_id, p.s_name, p.s_pictureUrl, t.o_num, t.o_money, o.o_type
+    FROM `orderdetail` AS t
+    INNER JOIN `order` AS o
+    ON t.o_id = o.`o_id`
+    INNER JOIN productinfo AS p
+    ON t.s_id = p.s_id
+    where t.o_id = #{oid}
+  </select>
+
+  <select id="selectExcelOrderById" parameterType="java.lang.String" resultType="com.nongzi.pojo.ExcelOrderDO">
+    select od.o_id as oId,r.o_name as oName,r.o_phone as oPhone,r.o_address as oAddress,
+    s.s_name as sName,od.o_num as num ,od.o_money as money
+    from orderdetail  od
+    LEFT JOIN productinfo s on od.s_id = s.s_id
+    LEFT JOIN receiptinfo r on r.o_id= od.o_id
+    where od.o_id =#{oId}
+  </select>
 </mapper>

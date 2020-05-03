@@ -3,6 +3,7 @@ package com.nongzi.dao;
 import com.nongzi.pojo.Role;
 import com.nongzi.pojo.RoleExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleMapper {

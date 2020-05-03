@@ -193,4 +193,17 @@
       recordNumber = #{recordnumber,jdbcType=INTEGER}
     where record_id = #{recordId,jdbcType=INTEGER}
   </update>
+  <select id="selectGroupByType" parameterType="map" resultType="com.nongzi.pojo.RecordDO">
+    select sum(r.recordNumber) as value,s.s_type as name
+    from record r INNER JOIN productinfo s on r.s_id=s.s_id
+    <where>
+      <if test="startDate !=null and startDate !='' ">
+        <![CDATA[AND recordDate  >= #{startDate} ]]>
+      </if>
+      <if test="endDate !=null and endDate !='' ">
+        <![CDATA[AND recordDate  <= #{endDate} ]]>
+      </if>
+    </where>
+    GROUP BY s.s_type
+  </select>
 </mapper>

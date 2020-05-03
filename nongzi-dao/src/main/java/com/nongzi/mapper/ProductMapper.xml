@@ -326,7 +326,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.nongzi.pojo.Product">
     update productinfo
     <set>
-      <if test="sBatch != null">
+      <if test="sBatch != null and sBatch != '' ">
         s_batch = #{sBatch,jdbcType=VARCHAR},
       </if>
       <if test="sName != null">
@@ -397,4 +397,41 @@
       s_number = #{sNumber,jdbcType=INTEGER}
     where s_id = #{sId,jdbcType=INTEGER}
   </update>
+
+  <resultMap id="productPage" type="com.nongzi.pojo.Product">
+    <id column="s_id" property="sId"/>
+    <result column="s_batch" property="sBatch"/>
+    <result column="s_name" property="sName"/>
+    <result column="s_price" property="sPrice"/>
+    <result column="s_discount" property="sDiscount"/>
+    <result column="s_pictureUrl" property="sPictureurl"/>
+    <result column="s_brand" property="sBrand"/>
+    <result column="s_place" property="sPlace"/>
+    <result column="s_Imported" property="sImported"/>
+    <result column="s_score" property="sScore"/>
+    <result column="s_pDate" property="sPdate"/>
+    <result column="s_qDate" property="sQdate"/>
+    <result column="state" property="state"/>
+    <result column="s_createDate" property="sCreatedate"/>
+    <result column="s_dese" property="sDese"/>
+    <result column="s_type" property="sType"/>
+    <result column="s_number" property="sNumber"/>
+  </resultMap>
+  <select id="selectProductByPage" parameterType="com.nongzi.pojo.ProductDO" resultMap="productPage">
+    select * from productinfo
+    where 1 = 1
+    <if test="sType != null and sType != '' ">
+      and s_type = #{sType}
+    </if>
+    <if test="sName != null and sName != '' ">
+      and s_name = #{sName}
+    </if>
+    <if test="startDate != null and startDate != '' ">
+      <![CDATA[ and s_pDate >= startDate ]]>
+    </if>
+    <if test="endDate != null and endDate != '' ">
+      <![CDATA[ and s_pDate <= endDate ]]]>
+    </if>
+
+  </select>
 </mapper>

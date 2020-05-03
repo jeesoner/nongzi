@@ -1,6 +1,7 @@
 package com.nongzi.dao;
 
 import com.nongzi.pojo.Product;
+import com.nongzi.pojo.ProductDO;
 import com.nongzi.pojo.ProductExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -27,4 +28,6 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+    List<Product> selectProductByPage(ProductDO productDO);
 }

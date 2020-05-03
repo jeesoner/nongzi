@@ -1,6 +1,8 @@
 package com.nongzi.dao;
 
+import com.nongzi.pojo.ExcelOrderDO;
 import com.nongzi.pojo.OrderDetail;
+import com.nongzi.pojo.OrderDetailDO;
 import com.nongzi.pojo.OrderDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -27,4 +29,8 @@ public interface OrderDetailMapper {
     int updateByPrimaryKeySelective(OrderDetail record);
 
     int updateByPrimaryKey(OrderDetail record);
+
+    List<OrderDetailDO> selectOrderDetailByoId(String oid);
+
+    List<ExcelOrderDO> selectExcelOrderById(String oid);
 }
