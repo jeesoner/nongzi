@@ -10,7 +10,8 @@
 * Spring 5.2.5、SpringMVC 5.2.5
 * MyBatis 3.5.4
 
-### 前端页面技术
+### 前端技术
 * HTML5+CSS+JS
 * JSP
 * Ajax+JQuery+Bootstrap
+* AngularJS
