@@ -25,7 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--各种jar包的版本-->
         <spring.version>5.2.5.RELEASE</spring.version>
-        <log4j2.version>2.6.2</log4j2.version>
+        <log4j2.version>2.16.0</log4j2.version>
         <mysql.version>8.0.19</mysql.version>
         <junit.version>4.12</junit.version>
         <mybatis.version>3.5.4</mybatis.version>
